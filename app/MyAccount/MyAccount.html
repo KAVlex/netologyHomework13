@@ -1,0 +1,56 @@
+<style>
+    .ng-dirty.ng-invalid {
+        border-color: #FA787E;
+    }
+
+    .ng-dirty.ng-valid {
+        border-color: #78FA89;
+    }
+
+</style>
+
+<div ng-if="vm.isSaved">
+    <p>Имя:      {{vm.account.name}}</p>
+    <p>Email:    {{vm.account.email}}</p>
+    <p>Телефон:  {{vm.account.phone}}</p>
+    <div>
+        <button class="btn btn-danger" ng-click="vm.reset()">Сбросить</button>
+    </div>
+</div>
+
+<form name="vm.accountForm" novalidate ng-if="!vm.isSaved">
+    <div class="form-group">
+        <label>Имя</label>
+        <input class="form-control" data-ng-model="vm.account.name" type="text" placeholder="Имя" required ng-minlength="3" name="accountName">
+    </div>
+
+    <div ng-messages="vm.accountForm.accountName.$error" ng-if="vm.accountForm.accountName.$dirty">
+
+        <div ng-message="required" class="alert alert-danger" role="alert">А где имя?</div>
+        <div ng-message="minlength" class="alert alert-danger" role="alert">Имя слишком короткое</div>
+
+    </div>
+
+    <div class="form-group">
+        <label>Email</label>
+        <input class="form-control" data-ng-model="vm.account.email" type="email" placeholder="Email" required name="accountEmail">
+    </div>
+
+    <div role="alert" ng-messages="vm.accountForm.accountEmail.$error" ng-if="vm.accountForm.accountEmail.$dirty">
+        <div ng-message="required" class="alert alert-danger" role="alert">А где Email?</div>
+        <div ng-message="email" class="alert alert-danger">Это значение не похоже на Email</div>
+    </div>
+
+    <div class="form-group">
+        <label>Телефон</label>
+        <input class="form-control" data-ng-model="vm.account.phone" type="text" placeholder="+79374035678" data-ng-pattern="/^[\+]?(\d)+$/" name="accountPhone">
+    </div>
+
+    <div role="alert" ng-messages="vm.accountForm.accountPhone.$error" ng-if="vm.accountForm.accountPhone.$dirty">
+        <div ng-message="pattern" class="alert alert-danger">Это значение не похоже на телефон</div>
+    </div>
+
+    <button type="submit" class="btn btn-primary" data-ng-click="vm.saveAccount(vm.account)" data-ng-disabled="vm.accountForm.$invalid">Добавить
+    </button>
+
+</form>

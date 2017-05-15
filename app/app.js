@@ -25,11 +25,30 @@ config(function($stateProvider) {
             url: '/pokemons/:pokemonId',
             templateUrl: 'PokemonDetail/PokemonDetail.html',
             controller: 'PokemonDetailCtrl as vm'
-        }).state({
+        })
+        .state({
             name: 'detail.edit',
             url: '/edit',
             parent: 'detail',
             templateUrl: 'PokemonDetail/PokemonDetailEdit.html',
             controller: function() {}
+        })
+        .state({
+            name: 'myaccount',
+            url: '/myaccount',
+            templateUrl: 'MyAccount/MyAccount.html',
+            controller: 'MyAccountCtrl as vm'
         });
+})
+.controller('menuCtrl', function ($scope) {
+    $scope.menu = [{
+        text: "Список",
+        sref: "list"
+    }, {
+        text: "Добавить нового",
+        sref: "createNewPokemon"
+    }, {
+        text: "Мой кабинет",
+        sref: "myaccount"
+    }];
 });
